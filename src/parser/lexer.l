@@ -38,13 +38,12 @@ void print_msg(std::ostream &out) {
 }
 
 int handle_token(int token) {
-    current_token = token;
+    current_token = token;    
     column_start_number = column_end_number;
     yylval.symbol_size = strlen(yytext);
     yylval.current_symbol = new char[yylval.symbol_size];
     strcpy(yylval.current_symbol,yytext);
     column_end_number += strlen(yytext);//yytext是正则表达式匹配的部分
-    //print_msg(std::cout);
     return token;
 }
 %}
@@ -69,6 +68,8 @@ int handle_token(int token) {
 
 int { return handle_token( INT);}
 void { return handle_token( VOID);}
+if { return handle_token( IF);}
+else { return handle_token( ELSE);}
 return { return handle_token(RETURN);}
 [a-zA-Z_][a-zA-Z_0-9]* { return handle_token( Ident);}
 [0-9]+ { return handle_token( IntConst);}
@@ -82,9 +83,20 @@ return { return handle_token(RETURN);}
 "{" { return handle_token( LBRACE); }
 "}" { return handle_token( RBRACE);}
 ";" { return handle_token( SEMICOLON); }
+"=" { return handle_token( ASSIGN); }
+"," { return handle_token( COMMA); }
+"<" { return handle_token( LESS); }
+">" { return handle_token( GREATER); }
+"==" { return handle_token( EQUAL); }
+"!" { return handle_token( NOT); }
+"<=" { return handle_token( LESS_EQUAL); }
+">=" { return handle_token( GREATER_EQUAL); }
+"!=" { return handle_token( NOT_EQUAL); }
+"||" { return handle_token( OR); }
+"&&" { return handle_token( AND); }
 
 \n {
-    line_number++;
+    line_number += 1;
     column_start_number = column_end_number;
     column_end_number = 0;
 }
