@@ -91,14 +91,14 @@ void SynataxAnalysePrimaryExpVar(ast::expr_syntax* &self, char* current_symbol)
 void SynataxAnalyseVarDecl(ast::stmt_syntax *&self, ast::var_def_stmt_syntax *var_def, ast::var_decl_stmt_syntax *var_def_group)
 {
     if(!var_def_group)var_def_group=new ast::var_decl_stmt_syntax;
-    var_def_group->var_def_list.push_back(std::shared_ptr<ast::var_def_stmt_syntax>(var_def));
+    var_def_group->var_def_list.insert(var_def_group->var_def_list.begin(),std::shared_ptr<ast::var_def_stmt_syntax>(var_def));
     self = static_cast<ast::stmt_syntax*>(var_def_group);
 }
 
 void SynataxAnalyseVarDefGroup(ast::var_decl_stmt_syntax *&self, ast::var_def_stmt_syntax *var_def, ast::var_decl_stmt_syntax *var_def_group)
 {
     if(!var_def_group)var_def_group=new ast::var_decl_stmt_syntax;
-    var_def_group->var_def_list.push_back(ptr<ast::var_def_stmt_syntax>(var_def));
+    var_def_group->var_def_list.insert(var_def_group->var_def_list.begin(),std::shared_ptr<ast::var_def_stmt_syntax>(var_def));
     self = var_def_group;
 }
 
