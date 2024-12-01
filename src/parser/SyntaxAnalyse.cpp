@@ -175,7 +175,7 @@ void SynataxAnalyseLAndExp(ast::expr_syntax *&self, ast::expr_syntax *cond1, ast
 
 void SynataxAnalyseEqExp(ast::expr_syntax *&self, ast::expr_syntax *cond1, char *op, ast::expr_syntax *cond2)
 {
-    auto syntax = new ast::logic_cond_syntax;
+    auto syntax = new ast::rel_cond_syntax;
     string o(op);
     if(o=="!=")syntax->op=relop::non_equal;
     if(o=="==")syntax->op=relop::equal;
